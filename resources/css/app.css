@@ -1,3 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-linen font-sans text-ink antialiased;
+        background-image:
+            radial-gradient(circle at top left, rgba(74, 124, 89, 0.12), transparent 28rem),
+            radial-gradient(circle at bottom right, rgba(181, 101, 29, 0.1), transparent 24rem),
+            linear-gradient(180deg, rgba(247, 242, 234, 0.98), rgba(247, 242, 234, 1));
+        min-height: 100vh;
+    }
+
+    ::selection {
+        @apply bg-sage text-linen;
+    }
+}
+
+@layer components {
+    [x-cloak] {
+        display: none !important;
+    }
+
+    .surface-panel {
+        @apply border border-ink/10 bg-white/85 shadow-[0_24px_60px_-32px_rgba(28,25,23,0.35)] backdrop-blur-sm;
+    }
+
+    .paper-panel {
+        @apply border border-ink/10 bg-linen/90 shadow-[0_24px_60px_-38px_rgba(28,25,23,0.28)];
+    }
+
+    .section-kicker {
+        @apply inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.28em] text-sage;
+    }
+
+    .section-title {
+        @apply font-serif text-4xl font-bold leading-tight text-ink sm:text-5xl;
+    }
+
+    .section-copy {
+        @apply text-sm font-light leading-7 text-muted sm:text-[1rem];
+    }
+
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 bg-ink px-5 py-3 font-mono text-[11px] uppercase tracking-[0.24em] text-linen transition duration-200 hover:bg-sage focus:outline-none focus:ring-2 focus:ring-sage/30 focus:ring-offset-2 focus:ring-offset-linen disabled:cursor-not-allowed disabled:opacity-60;
+    }
+
+    .btn-secondary {
+        @apply inline-flex items-center justify-center gap-2 border border-ink/15 bg-transparent px-5 py-3 font-mono text-[11px] uppercase tracking-[0.24em] text-ink transition duration-200 hover:border-sage hover:text-sage focus:outline-none focus:ring-2 focus:ring-sage/30 focus:ring-offset-2 focus:ring-offset-linen disabled:cursor-not-allowed disabled:opacity-60;
+    }
+
+    .btn-danger {
+        @apply inline-flex items-center justify-center gap-2 bg-copper px-5 py-3 font-mono text-[11px] uppercase tracking-[0.24em] text-linen transition duration-200 hover:bg-[#9c561a] focus:outline-none focus:ring-2 focus:ring-copper/30 focus:ring-offset-2 focus:ring-offset-linen disabled:cursor-not-allowed disabled:opacity-60;
+    }
+
+    .field-label {
+        @apply mb-2 block font-mono text-[11px] uppercase tracking-[0.22em] text-muted;
+    }
+
+    .field-input {
+        @apply block w-full border border-ink/10 bg-white/90 px-4 py-3.5 text-sm text-ink placeholder:text-muted/75 shadow-sm transition duration-200 focus:border-sage focus:ring-4 focus:ring-sage/10;
+    }
+
+    .topbar-link {
+        @apply inline-flex items-center gap-2 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.22em] text-muted transition duration-200 hover:bg-white/60 hover:text-ink;
+    }
+
+    .topbar-link-active {
+        @apply bg-sage-light text-sage;
+    }
+
+    .mobile-link {
+        @apply flex items-center gap-3 border border-transparent px-4 py-3 text-sm text-ink transition duration-200 hover:border-ink/10 hover:bg-white/60;
+    }
+}

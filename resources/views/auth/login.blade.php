@@ -1,46 +1,52 @@
 <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <div class="mb-8 space-y-4">
+        <span class="section-kicker">
+            <x-heroicon-o-arrow-right-end-on-rectangle class="h-4 w-4" />
+            Masuk Akun
+        </span>
+        <h1 class="font-serif text-4xl font-bold leading-tight text-ink sm:text-5xl">
+            Lanjutkan ke dashboard {{ config('app.name', 'Aksara Pustaka') }}.
+        </h1>
+        <p class="section-copy max-w-2xl">
+            Gunakan email dan kata sandi Anda untuk mengakses ruang kerja perpustakaan yang kini serasi dengan landing page utama.
+        </p>
+    </div>
 
-    <form method="POST" action="{{ route('login') }}">
+    <x-auth-session-status class="mb-6" :status="session('status')" />
+
+    <form method="POST" action="{{ route('login') }}" class="space-y-5">
         @csrf
 
-        <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-input-label for="email" value="Email" />
+            <x-text-input id="email" class="mt-1" type="email" name="email" :value="old('email')" required autofocus
+                autocomplete="username" placeholder="nama@sekolah.id" />
+            <x-input-error :messages="$errors->get('email')" class="mt-3" />
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div>
+            <x-input-label for="password" value="Kata Sandi" />
+            <x-text-input id="password" class="mt-1" type="password" name="password" required
+                autocomplete="current-password" placeholder="Masukkan kata sandi" />
+            <x-input-error :messages="$errors->get('password')" class="mt-3" />
         </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+        <label for="remember_me" class="flex items-center gap-3 border border-ink/10 bg-white/70 px-4 py-3 text-sm text-muted">
+            <input id="remember_me" type="checkbox" class="border-ink/20 text-sage focus:ring-sage/30" name="remember">
+            <span>Ingat sesi saya di perangkat ini</span>
+        </label>
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+                <a class="inline-flex items-center gap-2 text-sm text-muted transition hover:text-sage" href="{{ route('password.request') }}">
+                    <x-heroicon-o-key class="h-4 w-4" />
+                    Lupa kata sandi?
                 </a>
             @endif
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
+            <x-primary-button>
+                <x-heroicon-o-arrow-right-end-on-rectangle class="h-4 w-4" />
+                Masuk
             </x-primary-button>
         </div>
     </form>

@@ -1,51 +1,57 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <div class="mb-8 space-y-4">
+        <span class="section-kicker">
+            <x-heroicon-o-user-plus class="h-4 w-4" />
+            Registrasi
+        </span>
+        <h1 class="font-serif text-4xl font-bold leading-tight text-ink sm:text-5xl">
+            Buat akun baru untuk mulai menggunakan sistem.
+        </h1>
+        <p class="section-copy max-w-2xl">
+            Formulir ini mengikuti identitas visual baru aplikasi agar pengalaman pengguna terasa utuh sejak pertama kali masuk.
+        </p>
+    </div>
+
+    <form method="POST" action="{{ route('register') }}" class="space-y-5">
         @csrf
 
-        <!-- Name -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-input-label for="name" value="Nama Lengkap" />
+            <x-text-input id="name" class="mt-1" type="text" name="name" :value="old('name')" required autofocus
+                autocomplete="name" placeholder="Masukkan nama lengkap" />
+            <x-input-error :messages="$errors->get('name')" class="mt-3" />
         </div>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div>
+            <x-input-label for="email" value="Email" />
+            <x-text-input id="email" class="mt-1" type="email" name="email" :value="old('email')" required
+                autocomplete="username" placeholder="nama@sekolah.id" />
+            <x-input-error :messages="$errors->get('email')" class="mt-3" />
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div>
+            <x-input-label for="password" value="Kata Sandi" />
+            <x-text-input id="password" class="mt-1" type="password" name="password" required
+                autocomplete="new-password" placeholder="Minimal 8 karakter" />
+            <x-input-error :messages="$errors->get('password')" class="mt-3" />
         </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        <div>
+            <x-input-label for="password_confirmation" value="Konfirmasi Kata Sandi" />
+            <x-text-input id="password_confirmation" class="mt-1" type="password" name="password_confirmation" required
+                autocomplete="new-password" placeholder="Ulangi kata sandi" />
+            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-3" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
+        <div class="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
+            <a class="inline-flex items-center gap-2 text-sm text-muted transition hover:text-sage" href="{{ route('login') }}">
+                <x-heroicon-o-arrow-left class="h-4 w-4" />
+                Sudah punya akun?
             </a>
 
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
+            <x-primary-button>
+                <x-heroicon-o-user-plus class="h-4 w-4" />
+                Daftar
             </x-primary-button>
         </div>
     </form>

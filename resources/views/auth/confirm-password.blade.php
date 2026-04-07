@@ -1,26 +1,31 @@
 <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+    <div class="mb-8 space-y-4">
+        <span class="section-kicker">
+            <x-heroicon-o-lock-closed class="h-4 w-4" />
+            Konfirmasi Keamanan
+        </span>
+        <h1 class="font-serif text-4xl font-bold leading-tight text-ink sm:text-5xl">
+            Masukkan kata sandi untuk melanjutkan.
+        </h1>
+        <p class="section-copy max-w-2xl">
+            Langkah ini memastikan hanya pemilik akun yang bisa mengakses tindakan sensitif di dalam sistem.
+        </p>
     </div>
 
-    <form method="POST" action="{{ route('password.confirm') }}">
+    <form method="POST" action="{{ route('password.confirm') }}" class="space-y-5">
         @csrf
 
-        <!-- Password -->
         <div>
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-input-label for="password" value="Kata Sandi" />
+            <x-text-input id="password" class="mt-1" type="password" name="password" required
+                autocomplete="current-password" placeholder="Masukkan kata sandi Anda" />
+            <x-input-error :messages="$errors->get('password')" class="mt-3" />
         </div>
 
-        <div class="flex justify-end mt-4">
+        <div class="flex justify-end pt-2">
             <x-primary-button>
-                {{ __('Confirm') }}
+                <x-heroicon-o-check-badge class="h-4 w-4" />
+                Konfirmasi
             </x-primary-button>
         </div>
     </form>
