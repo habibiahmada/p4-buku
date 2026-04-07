@@ -9,10 +9,18 @@ Route::get('/', function () {
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+
+    Route::resource('books', App\Http\Controllers\Admin\BookController::class);
+
+    Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+
+    Route::resource('transactions', App\Http\Controllers\Admin\TransactionController::class);
 });
 
 Route::prefix('siswa')->name('siswa.')->group(function () {
     Route::get('/', [App\Http\Controllers\Siswa\DashboardController::class, 'index'])->name('dashboard');
+    
+    Route::get('transactions', [App\Http\Controllers\Siswa\TransactionController::class, 'index'])->name('transactions.index');
 });
 
 Route::middleware('auth')->group(function () {
