@@ -4,7 +4,7 @@
             <div class="space-y-4">
                 <span class="section-kicker">
                     <x-heroicon-o-squares-2x2 class="h-4 w-4" />
-                    Dashboard
+                    Admin Dashboard
                 </span>
             </div>
         </div>

@@ -11,7 +11,7 @@
     <div class="mx-auto max-w-6xl px-6">
         <div class="flex h-20 items-center justify-between gap-6">
             <div class="flex items-center gap-10">
-                <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-4">
+                <a href="{{ route( $user->role . '.dashboard') }}" class="inline-flex items-center gap-4">
                     <x-application-logo class="h-11 w-11" />
                     <div class="hidden sm:block">
                         <p class="font-serif text-xl font-semibold text-ink">{{ config('app.name', 'Aksara Pustaka') }}</p>
@@ -20,18 +20,10 @@
                 </a>
 
                 <div class="hidden items-center gap-2 md:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route( $user->role . '.dashboard')" :active="request()->routeIs( $user->role . '.dashboard')">
                         <x-heroicon-o-squares-2x2 class="h-4 w-4" />
                         Dashboard
                     </x-nav-link>
-                    <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.*')">
-                        <x-heroicon-o-user-circle class="h-4 w-4" />
-                        Profil
-                    </x-nav-link>
-                    <a href="{{ route('home') }}" class="topbar-link">
-                        <x-heroicon-o-home class="h-4 w-4" />
-                        Landing
-                    </a>
                 </div>
             </div>
 
@@ -55,12 +47,6 @@
                             <x-heroicon-o-user-circle class="h-5 w-5 text-sage" />
                             Profil Saya
                         </x-dropdown-link>
-
-                        <a href="{{ route('home') }}" class="flex items-center gap-3 px-4 py-3 text-sm text-ink transition duration-150 hover:bg-white">
-                            <x-heroicon-o-home class="h-5 w-5 text-sage" />
-                            Lihat landing page
-                        </a>
-
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
@@ -85,18 +71,10 @@
 
     <div x-show="open" x-cloak class="border-t border-ink/10 bg-linen/95 px-6 py-5 md:hidden">
         <div class="space-y-2">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link :href="route( $user->role . '.dashboard')" :active="request()->routeIs( $user->role . '.dashboard')">
                 <x-heroicon-o-squares-2x2 class="h-5 w-5" />
                 Dashboard
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.*')">
-                <x-heroicon-o-user-circle class="h-5 w-5" />
-                Profil
-            </x-responsive-nav-link>
-            <a href="{{ route('home') }}" class="mobile-link">
-                <x-heroicon-o-home class="h-5 w-5 text-sage" />
-                Landing page
-            </a>
         </div>
 
         <div class="mt-5 border border-ink/10 bg-white/70 p-4">

@@ -1,15 +1,8 @@
 <x-guest-layout>
     <div class="mb-8 space-y-4">
-        <span class="section-kicker">
-            <x-heroicon-o-user-plus class="h-4 w-4" />
-            Registrasi
-        </span>
         <h1 class="font-serif text-4xl font-bold leading-tight text-ink sm:text-5xl">
-            Buat akun baru untuk mulai menggunakan sistem.
+            Daftar
         </h1>
-        <p class="section-copy max-w-2xl">
-            Formulir ini mengikuti identitas visual baru aplikasi agar pengalaman pengguna terasa utuh sejak pertama kali masuk.
-        </p>
     </div>
 
     <form method="POST" action="{{ route('register') }}" class="space-y-5">
@@ -38,19 +31,19 @@
 
         <div>
             <x-input-label for="password_confirmation" value="Konfirmasi Kata Sandi" />
-            <x-text-input id="password_confirmation" class="mt-1" type="password" name="password_confirmation" required
-                autocomplete="new-password" placeholder="Ulangi kata sandi" />
+            <x-text-input id="password_confirmation" class="mt-1" type="password" name="password_confirmation"
+                required autocomplete="new-password" placeholder="Ulangi kata sandi" />
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-3" />
         </div>
 
         <div class="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
-            <a class="inline-flex items-center gap-2 text-sm text-muted transition hover:text-sage" href="{{ route('login') }}">
+            <a class="inline-flex items-center gap-2 text-sm text-muted transition hover:text-sage"
+                href="{{ route('login') }}">
                 <x-heroicon-o-arrow-left class="h-4 w-4" />
                 Sudah punya akun?
             </a>
 
             <x-primary-button>
-                <x-heroicon-o-user-plus class="h-4 w-4" />
                 Daftar
             </x-primary-button>
         </div>

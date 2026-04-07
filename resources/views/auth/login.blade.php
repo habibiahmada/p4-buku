@@ -1,15 +1,8 @@
 <x-guest-layout>
     <div class="mb-8 space-y-4">
-        <span class="section-kicker">
-            <x-heroicon-o-arrow-right-end-on-rectangle class="h-4 w-4" />
-            Masuk Akun
-        </span>
         <h1 class="font-serif text-4xl font-bold leading-tight text-ink sm:text-5xl">
-            Lanjutkan ke dashboard {{ config('app.name', 'Aksara Pustaka') }}.
+            Masuk
         </h1>
-        <p class="section-copy max-w-2xl">
-            Gunakan email dan kata sandi Anda untuk mengakses ruang kerja perpustakaan yang kini serasi dengan landing page utama.
-        </p>
     </div>
 
     <x-auth-session-status class="mb-6" :status="session('status')" />

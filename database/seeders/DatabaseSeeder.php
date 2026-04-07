@@ -18,8 +18,26 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+            'role' => 'admin',
+        ]);
+
+        User::factory()->create([
+            'name' => 'Siswa User',
+            'email' => 'siswa@example.com',
+            'role' => 'siswa',
+        ]);
+
+        // Buat beberapa user siswa
+        User::factory(10)->create([
+            'role' => 'siswa',
+        ]);
+
+        $this->call([
+            BookSeeder::class,
+            BorrowSeeder::class,
+            BorrowDetailSeeder::class,
         ]);
     }
 }

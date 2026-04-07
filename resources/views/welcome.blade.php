@@ -194,7 +194,7 @@
         </div>
     </nav>
 
-    <section class="mx-auto max-w-6xl px-6 pb-28 pt-20">
+    <section class="mx-auto max-w-6xl px-6 py-36">
         <div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-12">
             <div class="lg:col-span-7">
                 <div
@@ -206,7 +206,7 @@
                 <h1
                     class="fade-up d1 mb-6 font-serif text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-[4.25rem]">
                     Kelola<br>
-                    <em class="font-normal italic not-italic text-sage">Perpustakaan</em><br>
+                    <em class="font-normal italic not-italicy' text-sage">Perpustakaan</em><br>
                     Anda &mdash; Digital.
                 </h1>
 
