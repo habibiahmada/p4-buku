@@ -8,7 +8,7 @@
 @endphp
 
 <nav x-data="{ open: false }" class="sticky top-0 z-50 border-b border-ink/10 bg-linen/90 backdrop-blur-sm">
-    <div class="mx-auto max-w-6xl px-6">
+    <div class="mx-auto max-w-7xl px-6">
         <div class="flex h-20 items-center justify-between gap-6">
             <div class="flex items-center gap-10">
                 <a href="{{ route($user->role . '.dashboard') }}" class="inline-flex items-center gap-4">
