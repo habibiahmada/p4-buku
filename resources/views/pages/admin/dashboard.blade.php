@@ -18,15 +18,15 @@
 
             <div class="flex flex-wrap gap-3">
                 <a href="{{ route('admin.users.index') }}"
-                    class="inline-flex items-center justify-center rounded-md bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700">
+                    class="inline-flex items-center justify-center  bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700">
                     Kelola Anggota
                 </a>
                 <a href="{{ route('admin.books.index') }}"
-                    class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-50">
+                    class="inline-flex items-center justify-center  border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-50">
                     Kelola Buku
                 </a>
                 <a href="{{ route('admin.transactions.index') }}"
-                    class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-50">
+                    class="inline-flex items-center justify-center  border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-50">
                     Lihat Peminjaman
                 </a>
             </div>
@@ -44,37 +44,37 @@
     <div class="py-10">
         <div class="mx-auto max-w-7xl space-y-6 px-6">
             <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                <div class="rounded-2xl border border-emerald-100 bg-white p-6 shadow-sm">
+                <div class=" border border-emerald-100 bg-white p-6 shadow-sm">
                     <p class="text-sm font-medium text-gray-500">Total anggota</p>
                     <p class="mt-3 text-3xl font-semibold text-gray-900">{{ number_format($totalAnggota) }}</p>
                     <p class="mt-2 text-sm text-gray-500">{{ number_format($totalAdmin) }} admin mendukung operasional.</p>
                 </div>
 
-                <div class="rounded-2xl border border-sky-100 bg-white p-6 shadow-sm">
+                <div class=" border border-sky-100 bg-white p-6 shadow-sm">
                     <p class="text-sm font-medium text-gray-500">Judul buku</p>
                     <p class="mt-3 text-3xl font-semibold text-gray-900">{{ number_format($totalBuku) }}</p>
                     <p class="mt-2 text-sm text-gray-500">{{ number_format($totalStokBuku) }} stok tersedia di rak.</p>
                 </div>
 
-                <div class="rounded-2xl border border-amber-100 bg-white p-6 shadow-sm">
+                <div class=" border border-amber-100 bg-white p-6 shadow-sm">
                     <p class="text-sm font-medium text-gray-500">Peminjaman aktif</p>
                     <p class="mt-3 text-3xl font-semibold text-gray-900">{{ number_format($peminjamanAktif) }}</p>
                     <p class="mt-2 text-sm text-gray-500">{{ number_format($peminjamanTerlambat) }} transaksi perlu perhatian.</p>
                 </div>
 
-                <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                <div class=" border border-gray-200 bg-white p-6 shadow-sm">
                     <p class="text-sm font-medium text-gray-500">Buku sedang dipinjam</p>
                     <p class="mt-3 text-3xl font-semibold text-gray-900">{{ number_format($bukuDipinjam) }}</p>
                     <p class="mt-2 text-sm text-gray-500">{{ $persentaseDipinjam }}% dari total koleksi aktif sedang keluar.</p>
                 </div>
 
-                <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                <div class=" border border-gray-200 bg-white p-6 shadow-sm">
                     <p class="text-sm font-medium text-gray-500">Peminjaman selesai</p>
                     <p class="mt-3 text-3xl font-semibold text-gray-900">{{ number_format($peminjamanSelesai) }}</p>
                     <p class="mt-2 text-sm text-gray-500">Total riwayat transaksi yang sudah dikembalikan.</p>
                 </div>
 
-                <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                <div class=" border border-gray-200 bg-white p-6 shadow-sm">
                     <p class="text-sm font-medium text-gray-500">Stok menipis</p>
                     <p class="mt-3 text-3xl font-semibold text-gray-900">{{ number_format($bukuStokMenipis) }}</p>
                     <p class="mt-2 text-sm text-gray-500">Judul buku dengan stok 3 eksemplar atau kurang.</p>
@@ -82,7 +82,7 @@
             </div>
 
             <div class="grid gap-6 xl:grid-cols-[minmax(0,1.7fr)_minmax(320px,1fr)]">
-                <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                <div class=" border border-gray-200 bg-white p-6 shadow-sm">
                     <div class="flex items-start justify-between gap-4">
                         <div>
                             <h3 class="text-lg font-semibold text-gray-900">Grafik peminjaman 6 bulan terakhir</h3>
@@ -90,7 +90,7 @@
                                 Membantu memantau tren aktivitas peminjaman dari waktu ke waktu.
                             </p>
                         </div>
-                        <div class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+                        <div class=" bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
                             {{ number_format($totalTransaksi) }} transaksi
                         </div>
                     </div>
@@ -102,8 +102,8 @@
                             @endphp
                             <div class="flex flex-1 flex-col items-center gap-3">
                                 <span class="text-sm font-semibold text-gray-700">{{ $item['total'] }}</span>
-                                <div class="flex h-52 w-full items-end rounded-2xl bg-gray-100 p-2">
-                                    <div class="w-full rounded-xl bg-gradient-to-t from-emerald-600 to-emerald-400"
+                                <div class="flex h-52 w-full items-end  bg-gray-100 p-2">
+                                    <div class="w-full  bg-gradient-to-t from-emerald-600 to-emerald-400"
                                         style="height: {{ $barHeight }}%"></div>
                                 </div>
                                 <div class="text-center">
@@ -116,7 +116,7 @@
                 </div>
 
                 <div class="space-y-6">
-                    <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                    <div class=" border border-gray-200 bg-white p-6 shadow-sm">
                         <h3 class="text-lg font-semibold text-gray-900">Ringkasan sistem</h3>
                         <div class="mt-6 space-y-5">
                             <div>
@@ -124,8 +124,8 @@
                                     <span class="text-gray-600">Komposisi pengguna</span>
                                     <span class="font-semibold text-gray-900">{{ number_format($totalPengguna) }}</span>
                                 </div>
-                                <div class="h-3 overflow-hidden rounded-full bg-gray-100">
-                                    <div class="h-full rounded-full bg-emerald-500"
+                                <div class="h-3 overflow-hidden  bg-gray-100">
+                                    <div class="h-full  bg-emerald-500"
                                         style="width: {{ $totalPengguna > 0 ? round(($totalAnggota / $totalPengguna) * 100) : 0 }}%"></div>
                                 </div>
                                 <p class="mt-2 text-xs text-gray-500">
@@ -138,8 +138,8 @@
                                     <span class="text-gray-600">Ketersediaan koleksi</span>
                                     <span class="font-semibold text-gray-900">{{ number_format($totalStokBuku) }}</span>
                                 </div>
-                                <div class="h-3 overflow-hidden rounded-full bg-gray-100">
-                                    <div class="h-full rounded-full bg-sky-500"
+                                <div class="h-3 overflow-hidden  bg-gray-100">
+                                    <div class="h-full  bg-sky-500"
                                         style="width: {{ $totalKoleksiAktif > 0 ? round(($totalStokBuku / $totalKoleksiAktif) * 100) : 0 }}%"></div>
                                 </div>
                                 <p class="mt-2 text-xs text-gray-500">
@@ -152,8 +152,8 @@
                                     <span class="text-gray-600">Status transaksi selesai</span>
                                     <span class="font-semibold text-gray-900">{{ number_format($peminjamanSelesai) }}</span>
                                 </div>
-                                <div class="h-3 overflow-hidden rounded-full bg-gray-100">
-                                    <div class="h-full rounded-full bg-amber-500"
+                                <div class="h-3 overflow-hidden  bg-gray-100">
+                                    <div class="h-full  bg-amber-500"
                                         style="width: {{ $totalTransaksi > 0 ? round(($peminjamanSelesai / $totalTransaksi) * 100) : 0 }}%"></div>
                                 </div>
                                 <p class="mt-2 text-xs text-gray-500">
@@ -163,19 +163,19 @@
                         </div>
                     </div>
 
-                    <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                    <div class=" border border-gray-200 bg-white p-6 shadow-sm">
                         <h3 class="text-lg font-semibold text-gray-900">Akses cepat</h3>
                         <div class="mt-4 grid gap-3">
                             <a href="{{ route('admin.users.index') }}"
-                                class="rounded-xl border border-gray-200 px-4 py-3 text-sm font-medium text-gray-700 transition hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700">
+                                class=" border border-gray-200 px-4 py-3 text-sm font-medium text-gray-700 transition hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700">
                                 Kelola data anggota
                             </a>
                             <a href="{{ route('admin.books.index') }}"
-                                class="rounded-xl border border-gray-200 px-4 py-3 text-sm font-medium text-gray-700 transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700">
+                                class=" border border-gray-200 px-4 py-3 text-sm font-medium text-gray-700 transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700">
                                 Kelola data buku
                             </a>
                             <a href="{{ route('admin.transactions.index') }}"
-                                class="rounded-xl border border-gray-200 px-4 py-3 text-sm font-medium text-gray-700 transition hover:border-amber-300 hover:bg-amber-50 hover:text-amber-700">
+                                class=" border border-gray-200 px-4 py-3 text-sm font-medium text-gray-700 transition hover:border-amber-300 hover:bg-amber-50 hover:text-amber-700">
                                 Cek transaksi peminjaman
                             </a>
                         </div>
@@ -183,7 +183,7 @@
                 </div>
             </div>
 
-            <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+            <div class=" border border-gray-200 bg-white p-6 shadow-sm">
                 <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                     <div>
                         <h3 class="text-lg font-semibold text-gray-900">Peminjaman terbaru</h3>
@@ -233,7 +233,7 @@
                                                 default => 'bg-gray-100 text-gray-700',
                                             };
                                         @endphp
-                                        <span class="inline-flex rounded-full px-3 py-1 text-xs font-semibold {{ $statusClass }}">
+                                        <span class="inline-flex  px-3 py-1 text-xs font-semibold {{ $statusClass }}">
                                             {{ ucfirst($borrowing->status) }}
                                         </span>
                                     </td>

@@ -19,8 +19,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 Route::prefix('siswa')->name('siswa.')->group(function () {
     Route::get('/', [App\Http\Controllers\Siswa\DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('transactions/return', [App\Http\Controllers\Siswa\TransactionController::class, 'return'])->name('transactions.return');
     
-    Route::get('transactions', [App\Http\Controllers\Siswa\TransactionController::class, 'index'])->name('transactions.index');
+    Route::resource('transactions', App\Http\Controllers\Siswa\TransactionController::class);
 });
 
 Route::middleware('auth')->group(function () {
