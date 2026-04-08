@@ -44,15 +44,18 @@ class TransactionController extends Controller
         $transactionItems = (clone $query)->get();
         $borrowings = $query->paginate(10)->withQueryString();
 
+        // Hitung statistik dari semua data tanpa filter
+        $allBorrowings = Borrow::with(['user', 'borrowDetails'])->get();
+
         $today = Carbon::today();
         $countBooks = fn ($transaction) => $transaction->borrowDetails->sum('qty');
         $isOverdue = fn ($transaction) => $transaction->status !== 'returned' && filled($transaction->due_date) && Carbon::parse($transaction->due_date)->startOfDay()->lt($today);
 
-        $totalPeminjaman = $transactionItems->count();
-        $peminjamanAktif = $transactionItems->where('status', 'borrowed')->count();
-        $peminjamanSelesai = $transactionItems->where('status', 'returned')->count();
-        $peminjamanTerlambat = $transactionItems->filter($isOverdue)->count();
-        $totalBukuDipinjam = $transactionItems->sum($countBooks);
+        $totalPeminjaman = $allBorrowings->count();
+        $peminjamanAktif = $allBorrowings->where('status', 'borrowed')->count();
+        $peminjamanSelesai = $allBorrowings->where('status', 'returned')->count();
+        $peminjamanTerlambat = $allBorrowings->filter($isOverdue)->count();
+        $totalBukuDipinjam = $allBorrowings->sum($countBooks);
 
         return view('pages.admin.transactions.index', compact(
             'borrowings',
