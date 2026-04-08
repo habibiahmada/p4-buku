@@ -185,11 +185,17 @@
             </div>
 
             <div class="flex items-center gap-3">
-                <a href="{{ route('login') }}"
-                    class="hidden font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-ink sm:inline">Masuk</a>
-                <a href="{{ route('register') }}"
-                    class="bg-sage px-4 py-2.5 font-mono text-[11px] uppercase tracking-widest text-linen transition-colors hover:bg-sage/85">Daftar
-                    &rarr;</a>
+                @auth
+                    <a href="{{ route('dashboard') }}"
+                        class="hidden font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-ink sm:inline">Dashboard</a>
+                @endauth
+                @guest
+                    <a href="{{ route('login') }}"
+                        class="hidden font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-ink sm:inline">Masuk</a>
+                    <a href="{{ route('register') }}"
+                        class="bg-sage px-4 py-2.5 font-mono text-[11px] uppercase tracking-widest text-linen transition-colors hover:bg-sage/85">Daftar
+                        &rarr;</a>
+                @endguest
             </div>
         </div>
     </nav>
@@ -207,7 +213,7 @@
                     class="fade-up d1 mb-6 font-serif text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-[4.25rem]">
                     Kelola<br>
                     <em class="font-normal italic not-italicy' text-sage">Perpustakaan</em><br>
-                    Anda &mdash; Digital.
+                    Anda Secara Digital.
                 </h1>
 
                 <p class="fade-up d2 mb-10 max-w-[44ch] font-sans text-[1.05rem] font-light leading-relaxed text-muted">
@@ -216,10 +222,19 @@
                 </p>
 
                 <div class="fade-up d3 flex flex-wrap gap-3">
-                    <a href="{{ route('register') }}"
-                        class="bg-ink px-7 py-3.5 font-mono text-[11px] uppercase tracking-widest text-linen transition-colors duration-200 hover:bg-sage">
-                        Mulai Gratis
-                    </a>
+                    @auth
+                        <a href="{{ route('dashboard') }}"
+                            class="bg-sage px-7 py-3.5 font-mono text-[11px] uppercase tracking-widest text-linen transition-colors hover:bg-sage/85">
+                            Buka Dashboard
+                        </a>
+
+                    @endauth
+                    @guest
+                        <a href="{{ route('register') }}"
+                            class="bg-ink px-7 py-3.5 font-mono text-[11px] uppercase tracking-widest text-linen transition-colors duration-200 hover:bg-sage">
+                            Mulai Gratis
+                        </a>
+                    @endguest
                     <a href="#fitur"
                         class="border border-ink/30 px-7 py-3.5 font-mono text-[11px] uppercase tracking-widest text-ink transition-colors duration-200 hover:border-sage hover:text-sage">
                         Lihat Fitur &darr;
@@ -379,10 +394,17 @@
                             </li>
                         @endforeach
                     </ul>
-                    <a href="{{ route('login') }}"
-                        class="inline-block bg-sage px-6 py-3 font-mono text-[11px] uppercase tracking-widest text-linen transition-colors hover:bg-sage/80">
-                        Login sebagai Admin &rarr;
-                    </a>
+                    @auth
+                        <a href="{{ route('dashboard') }}"
+                            class="inline-block bg-sage px-6 py-3 font-mono text-[11px] uppercase tracking-widest text-linen transition-colors hover:bg-sage/80">
+                            Buka Dashboard &rarr;
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}"
+                            class="inline-block bg-sage px-6 py-3 font-mono text-[11px] uppercase tracking-widest text-linen transition-colors hover:bg-sage/80">
+                            Masuk sistem &rarr;
+                        </a>
+                    @endauth
                 </div>
 
                 <div class="relative overflow-hidden bg-sage-light p-10">
@@ -475,15 +497,23 @@
                         Tinggalkan pencatatan manual. {{ $appName }} hadir untuk mengotomasi seluruh alur kerja
                         perpustakaan sekolah dari peminjaman hingga laporan akhir bulan.
                     </p>
-                    <div class="flex flex-wrap gap-3">
-                        <a href="{{ route('register') }}"
+                    @auth
+                        <a href="{{ route('dashboard') }}"
                             class="bg-sage px-8 py-4 font-mono text-[11px] uppercase tracking-widest text-linen transition-colors hover:bg-sage/80">
-                            Buat Akun Gratis
+                            Buka Dashboard
                         </a>
-                        <a href="{{ route('login') }}"
-                            class="border border-linen/20 px-8 py-4 font-mono text-[11px] uppercase tracking-widest text-linen transition-colors hover:border-sage hover:text-sage">
-                            Sudah Punya Akun &rarr;
-                        </a>
+                    @endauth
+                    @guest
+                        <div class="flex flex-wrap gap-3">
+                            <a href="{{ route('register') }}"
+                                class="bg-sage px-8 py-4 font-mono text-[11px] uppercase tracking-widest text-linen transition-colors hover:bg-sage/80">
+                                Buat Akun Gratis
+                            </a>
+                            <a href="{{ route('login') }}"
+                                class="border border-linen/20 px-8 py-4 font-mono text-[11px] uppercase tracking-widest text-linen transition-colors hover:border-sage hover:text-sage">
+                                Sudah Punya Akun &rarr;
+                            </a>
+                        @endguest
                     </div>
                 </div>
 
@@ -538,12 +568,19 @@
                 <div>
                     <p class="mb-5 font-mono text-[10px] uppercase tracking-widest text-muted">Akun</p>
                     <ul class="space-y-3">
-                        <li><a href="{{ route('login') }}"
-                                class="font-sans text-sm text-linen/45 transition-colors hover:text-sage">Login</a>
-                        </li>
-                        <li><a href="{{ route('register') }}"
-                                class="font-sans text-sm text-linen/45 transition-colors hover:text-sage">Daftar
-                                Anggota</a></li>
+                        @guest
+                            <li><a href="{{ route('login') }}"
+                                    class="font-sans text-sm text-linen/45 transition-colors hover:text-sage">Login</a>
+                            </li>
+                            <li><a href="{{ route('register') }}"
+                                    class="font-sans text-sm text-linen/45 transition-colors hover:text-sage">Daftar
+                                    Anggota</a></li>
+                        @endguest
+                        @auth
+                            <li><a href="{{ route('dashboard') }}"
+                                    class="font-sans text-sm text-linen/45 transition-colors hover:text-sage">Dashboard</a>
+                            </li>
+                        @endauth
                     </ul>
                 </div>
             </div>

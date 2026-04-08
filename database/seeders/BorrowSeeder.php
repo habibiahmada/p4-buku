@@ -24,11 +24,17 @@ class BorrowSeeder extends Seeder
             $returnedDate = $faker->optional(0.7)->dateTimeBetween($borrowedDate, '+60 days'); // 70% dikembalikan
             $status = $returnedDate ? 'returned' : 'borrowed';
 
+            $charge = 0;
+            if ($returnedDate && $returnedDate > $dueDate) {
+                $overdueDays = $returnedDate->diff($dueDate)->days;
+                $charge = $overdueDays * 10000;
+            }
+
             Borrow::create([
                 'user_id' => $users->random()->id,
                 'borrowed_date' => $borrowedDate,
                 'due_date' => $dueDate,
-                'charge' => $faker->randomFloat(2, 0, 100),
+                'charge' => $charge,
                 'returned_date' => $returnedDate,
                 'status' => $status,
             ]);

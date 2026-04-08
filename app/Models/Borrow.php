@@ -24,6 +24,6 @@ class Borrow extends Model
 
     public function borrowDetails()
     {
-        return $this->hasMany(BorrowDetail::class);
+        return $this->hasMany(BorrowDetail::class, 'borrowing_id');
     }
 }
