@@ -186,7 +186,7 @@
 
             <div class="flex items-center gap-3">
                 @auth
-                    <a href="{{ route('dashboard') }}"
+                    <a href="{{ route( $user->is_admin ? 'admin.dashboard' : 'siswa.dashboard') }}"
                         class="hidden font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-ink sm:inline">Dashboard</a>
                 @endauth
                 @guest
