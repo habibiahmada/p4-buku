@@ -1,7 +1,7 @@
 <x-app-layout>
     @php
         $today = now()->startOfDay();
-        $dailyFine = 10000;
+        $dailyFine = (int) config('borrowing.daily_fine', 10000);
         $routeTransaction = request()->route('transaction');
         $routeTransactionId = is_object($routeTransaction) ? data_get($routeTransaction, 'id') : $routeTransaction;
 
@@ -200,7 +200,7 @@
                         class="sticky top-6 overflow-hidden rounded-xl border border-indigo-100 bg-indigo-50 shadow-sm">
                         <div class="border-b border-indigo-100/50 px-6 py-5">
                             <h3 class="text-lg font-semibold text-indigo-900">Ringkasan Pengembalian</h3>
-                            <p class="mt-1 text-sm text-indigo-700">Denda dihitung otomatis Rp10.000 per hari
+                            <p class="mt-1 text-sm text-indigo-700">Denda dihitung otomatis {{ 'Rp' . number_format($dailyFine, 0, ',', '.') }} per hari
                                 keterlambatan.</p>
                         </div>
                         <div class="space-y-4 px-6 py-5">

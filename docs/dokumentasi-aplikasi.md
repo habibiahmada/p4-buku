@@ -45,7 +45,7 @@ Implementasi saat ini sudah merealisasikan tujuan itu melalui transaksi digital,
 | Manajemen anggota | Tersedia pada `Admin\\UserController` dan view `pages/admin/users/*` |
 | Peminjaman buku | Tersedia pada `Siswa\\TransactionController::store()` dengan dukungan multi-buku |
 | Pengembalian buku | Tersedia pada `Siswa\\TransactionController::update()` |
-| Perhitungan denda | Dihitung pada form pengembalian siswa dan disimpan ke transaksi |
+| Perhitungan denda | Dihitung oleh business rule di server saat pengembalian disimpan |
 | Riwayat transaksi | Tersedia untuk siswa dan admin dengan filter tanggal/status |
 | Role-based access | Dialirkan melalui dashboard per role dan middleware `is_admin` / `is_siswa` |
 
@@ -282,7 +282,7 @@ Beberapa istilah di implementasi sedikit berbeda dari dokumen analisis awal, tet
 - Dokumen analisis memakai label status Indonesia seperti `dipinjam` dan `dikembalikan`, implementasi database memakai nilai `borrowed` dan `returned`.
 - Dokumen analisis menyebut atribut `year`, implementasi memakai `publication_year`.
 - Dokumen analisis menyebut `return_date`, implementasi memakai `returned_date`.
-- Denda keterlambatan pada implementasi saat ini dihitung di sisi form pengembalian siswa dengan tarif Rp10.000 per hari, lalu nilainya disimpan ke tabel `borrowings`.
+- Denda keterlambatan pada implementasi saat ini dihitung di server menggunakan aturan `BORROWING_DAILY_FINE` dengan default Rp10.000 per hari, lalu nilainya disimpan ke tabel `borrowings`.
 
 ## 11. Pengembangan Lanjutan yang Masuk Akal
 

@@ -155,6 +155,8 @@ Test utama yang sudah tersedia mencakup:
 
 - [Dokumentasi aplikasi](docs/dokumentasi-aplikasi.md)
 - [Dokumentasi fungsi dan prosedur](docs/fungsi-dan-prosedur.md)
+- [Dokumentasi testing](docs/testing.md)
+- [Dokumentasi debugging](docs/debugging.md)
 
 ## Ringkasan Alur Sistem
 

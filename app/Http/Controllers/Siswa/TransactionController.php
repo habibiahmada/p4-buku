@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\Siswa;
 
+use App\Exceptions\BorrowingBusinessException;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Borrow;
-use App\Models\BorrowDetail;
+use App\Services\BorrowingService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
+    public function __construct(private readonly BorrowingService $borrowingService)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -56,39 +60,8 @@ class TransactionController extends Controller
         ]);
 
         try {
-            DB::transaction(function () use ($validated) {
-                foreach ($validated['books'] as $bookData) {
-                    $book = Book::query()->lockForUpdate()->findOrFail($bookData['id']);
-
-                    if ((int) $book->stock < (int) $bookData['qty']) {
-                        throw new \RuntimeException(
-                            "Stok buku '{$book->title}' tidak mencukupi. Stok tersedia: {$book->stock}"
-                        );
-                    }
-                }
-
-                $borrow = Borrow::create([
-                    'user_id' => auth()->id(),
-                    'borrowed_date' => $validated['borrowed_date'],
-                    'due_date' => $validated['due_date'],
-                    'charge' => 0,
-                    'status' => 'borrowed',
-                ]);
-
-                foreach ($validated['books'] as $bookData) {
-                    BorrowDetail::create([
-                        'borrowing_id' => $borrow->id,
-                        'book_id' => $bookData['id'],
-                        'qty' => $bookData['qty'],
-                    ]);
-
-                    Book::query()
-                        ->lockForUpdate()
-                        ->findOrFail($bookData['id'])
-                        ->decrement('stock', (int) $bookData['qty']);
-                }
-            });
-        } catch (\RuntimeException $exception) {
+            $this->borrowingService->createForUser($request->user(), $validated);
+        } catch (BorrowingBusinessException $exception) {
             return back()
                 ->withInput()
                 ->withErrors(['books' => $exception->getMessage()]);
@@ -113,7 +86,7 @@ class TransactionController extends Controller
     public function edit(string $id)
     {
         $borrow = Borrow::with('borrowDetails.book')
-            ->where('user_id', auth()->id())
+            ->where('user_id', auth()->user()-id())
             ->findOrFail($id);
         $borrowDetails = $borrow->borrowDetails;
 
@@ -138,15 +111,11 @@ class TransactionController extends Controller
         $validated = $request->validate([
             'borrowing_id' => 'required|exists:borrowings,id',
             'returned_date' => 'required|date',
-            'charge' => 'required|numeric|min:0',
         ], [
             'borrowing_id.required' => 'Pilih pinjaman yang akan dikembalikan',
             'borrowing_id.exists' => 'Pinjaman tidak ditemukan',
             'returned_date.required' => 'Tanggal kembali harus diisi',
             'returned_date.date' => 'Format tanggal kembali tidak valid',
-            'charge.required' => 'Denda harus diisi',
-            'charge.numeric' => 'Denda harus berupa angka',
-            'charge.min' => 'Denda tidak boleh negatif',
         ]);
 
         if ((string) $validated['borrowing_id'] !== (string) $id) {
@@ -155,37 +124,19 @@ class TransactionController extends Controller
         }
 
         try {
-            DB::transaction(function () use ($validated) {
-                $borrow = Borrow::with('borrowDetails')
-                    ->where('user_id', auth()->id())
-                    ->lockForUpdate()
-                    ->findOrFail($validated['borrowing_id']);
-
-                if ($borrow->status === 'returned') {
-                    throw new \RuntimeException('Buku ini sudah dikembalikan sebelumnya');
-                }
-
-                $borrow->update([
-                    'returned_date' => $validated['returned_date'],
-                    'charge' => $validated['charge'],
-                    'status' => 'returned',
-                ]);
-
-                foreach ($borrow->borrowDetails as $detail) {
-                    Book::query()
-                        ->lockForUpdate()
-                        ->findOrFail($detail->book_id)
-                        ->increment('stock', (int) $detail->qty);
-                }
-            });
-        } catch (\RuntimeException $exception) {
+            $borrow = $this->borrowingService->returnForUser(
+                $request->user(),
+                $validated['borrowing_id'],
+                $validated['returned_date'],
+            );
+        } catch (BorrowingBusinessException $exception) {
             return back()
                 ->withErrors(['borrowing_id' => $exception->getMessage()]);
         }
 
         return redirect()
             ->route('siswa.transactions.index')
-            ->with('success', 'Pengembalian buku berhasil dicatat. Denda sebesar Rp' . number_format((float) $validated['charge'], 0, ',', '.') . ' telah dihitung.');
+            ->with('success', 'Pengembalian buku berhasil dicatat. Denda sebesar Rp' . number_format((float) $borrow->charge, 0, ',', '.') . ' telah dihitung.');
     }
 
     /**

@@ -48,7 +48,12 @@ Dokumen ini merangkum fungsi inti aplikasi dan prosedur operasional yang berjala
 | `app/Http/Controllers/Siswa/TransactionController.php` | `store(Request $request)` | Menyimpan transaksi peminjaman multi-buku di dalam transaksi database | `borrowed_date`, `due_date`, `books[][id]`, `books[][qty]` | Borrowing baru, detail baru, stok berkurang |
 | `app/Http/Controllers/Siswa/TransactionController.php` | `edit(string $id)` | Menampilkan form pengembalian untuk transaksi tertentu | `id` borrowing | View edit pengembalian |
 | `app/Http/Controllers/Siswa/TransactionController.php` | `return()` | Menampilkan form pengembalian umum tanpa transaksi awal | - | View edit pengembalian |
-| `app/Http/Controllers/Siswa/TransactionController.php` | `update(Request $request, string $id)` | Menyimpan pengembalian, denda, dan mengembalikan stok | `borrowing_id`, `returned_date`, `charge` | Status menjadi `returned`, stok bertambah |
+| `app/Http/Controllers/Siswa/TransactionController.php` | `update(Request $request, string $id)` | Menyimpan pengembalian, menghitung denda di server, dan mengembalikan stok | `borrowing_id`, `returned_date` | Status menjadi `returned`, stok bertambah |
+| `app/Services/BorrowingService.php` | `createForUser(User $user, array $validated)` | Menyimpan transaksi peminjaman inti di database transaction | data transaksi pinjam | Borrowing dan detail tersimpan, stok berkurang |
+| `app/Services/BorrowingService.php` | `returnForUser(User $user, int|string $borrowingId, string $returnedDate)` | Menyimpan pengembalian inti dan menghitung denda di server | user, id transaksi, tanggal kembali | Status returned, charge terisi, stok bertambah |
+| `app/Support/BorrowingRules.php` | `calculateOverdueDays()` | Menghitung jumlah hari keterlambatan | `due_date`, `returned_date` | Jumlah hari terlambat |
+| `app/Support/BorrowingRules.php` | `calculateFine()` | Menghitung nominal denda | `due_date`, `returned_date` | Nilai denda |
+| `app/Support/BorrowingRules.php` | `hasEnoughStock()` | Mengecek kecukupan stok | `stock`, `qty` | `true` atau `false` |
 
 ## 4. Model dan Relasi Data
 
@@ -138,7 +143,7 @@ Dokumen ini merangkum fungsi inti aplikasi dan prosedur operasional yang berjala
 2. Siswa memilih transaksi aktif.
 3. Sistem menampilkan detail pinjaman, tanggal jatuh tempo, total buku, dan daftar buku.
 4. Sistem menghitung jumlah hari terlambat.
-5. Sistem menghitung denda dengan rumus `hari terlambat x 10000`.
+5. Sistem menghitung denda di server dengan rumus `hari terlambat x BORROWING_DAILY_FINE`.
 6. Saat form dikirim, sistem:
    memperbarui status transaksi menjadi `returned`,
    menyimpan `returned_date`,
@@ -161,7 +166,6 @@ Dokumen ini merangkum fungsi inti aplikasi dan prosedur operasional yang berjala
 
 - `borrowing_id` wajib ada di tabel `borrowings`.
 - `returned_date` wajib berupa tanggal.
-- `charge` wajib numerik dan tidak boleh negatif.
 - User hanya boleh mengembalikan transaksi miliknya sendiri.
 - Transaksi yang sudah `returned` tidak boleh diproses ulang.
 
