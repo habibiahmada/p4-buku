@@ -1,0 +1,48 @@
+<?php
+
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+    return view('welcome');
+})->name('home');
+
+Route::middleware('auth')->get('/dashboard', function () {
+    $user = auth()->user();
+
+    if ($user?->isAdmin()) {
+        return redirect()->route('admin.dashboard');
+    }
+
+    if ($user?->isSiswa()) {
+        return redirect()->route('siswa.dashboard');
+    }
+
+    return redirect()->route('home');
+})->name('dashboard');
+
+Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+
+    Route::resource('books', App\Http\Controllers\Admin\BookController::class);
+
+    Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+
+    Route::resource('transactions', App\Http\Controllers\Admin\TransactionController::class);
+});
+
+Route::middleware(['auth', 'is_siswa'])->prefix('siswa')->name('siswa.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Siswa\DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('transactions/return', [App\Http\Controllers\Siswa\TransactionController::class, 'return'])->name('transactions.return');
+    
+    Route::resource('transactions', App\Http\Controllers\Siswa\TransactionController::class);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
