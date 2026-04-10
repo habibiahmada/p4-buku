@@ -37,6 +37,7 @@ Dokumen ini merangkum fungsi inti aplikasi dan prosedur operasional yang berjala
 | `app/Http/Controllers/Admin/UserController.php` | `update(Request $request, string $id)` | Memperbarui data pengguna | data user + `id` | User diperbarui |
 | `app/Http/Controllers/Admin/UserController.php` | `destroy(string $id)` | Menghapus pengguna | `id` user | User terhapus |
 | `app/Http/Controllers/Admin/TransactionController.php` | `index(Request $request)` | Monitoring seluruh transaksi dengan filter nama, tanggal, dan status | `name`, `from_date`, `to_date`, `status` | Daftar transaksi dan statistik |
+| `app/Http/Controllers/Admin/TransactionController.php` | `show(string $id)` | Menampilkan detail lengkap transaksi peminjaman tertentu | `id` borrowing | View detail transaksi dengan informasi user, buku, dan status |
 
 ## 3. Modul Siswa
 
@@ -123,6 +124,7 @@ Dokumen ini merangkum fungsi inti aplikasi dan prosedur operasional yang berjala
 2. Gunakan filter nama anggota, rentang tanggal, atau status.
 3. Sistem menampilkan hasil transaksi yang sesuai.
 4. Admin memantau tanggal pinjam, jatuh tempo, tanggal kembali, total buku, dan denda.
+5. Admin dapat mengklik link atau tombol detail pada transaksi tertentu untuk melihat informasi lengkap, termasuk daftar buku yang dipinjam.
 
 ### 6.7 Prosedur siswa membuat peminjaman
 

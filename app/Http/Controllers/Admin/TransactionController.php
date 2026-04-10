@@ -88,7 +88,9 @@ class TransactionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $borrow = Borrow::with(['user', 'borrowDetails.book'])->findOrFail($id);
+
+        return view('pages.admin.transactions.show', compact('borrow'));
     }
 
     /**

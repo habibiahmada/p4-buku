@@ -86,7 +86,7 @@ class TransactionController extends Controller
     public function edit(string $id)
     {
         $borrow = Borrow::with('borrowDetails.book')
-            ->where('user_id', auth()->user()-id())
+            ->where('user_id', auth()->id())
             ->findOrFail($id);
         $borrowDetails = $borrow->borrowDetails;
 

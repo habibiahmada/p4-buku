@@ -27,7 +27,7 @@ Aksara Pustaka adalah aplikasi perpustakaan berbasis web untuk mengelola data bu
 
 | Role | Hak akses utama |
 | --- | --- |
-| `admin` | Melihat dashboard admin, mengelola buku, mengelola anggota, dan memantau seluruh transaksi |
+| `admin` | Melihat dashboard admin, mengelola buku, mengelola anggota, memantau seluruh transaksi, dan melihat detail transaksi tertentu |
 | `siswa` | Registrasi akun, login, membuat peminjaman, mengembalikan buku, melihat riwayat transaksi, dan mengubah profil |
 
 ## Stack Teknologi
@@ -51,7 +51,7 @@ Aksara Pustaka adalah aplikasi perpustakaan berbasis web untuk mengelola data bu
 - `Transaksi Siswa`
   Pembuatan peminjaman multi-buku, update stok otomatis, pengembalian, dan denda.
 - `Monitoring Transaksi Admin`
-  Daftar seluruh peminjaman, status aktif/selesai/terlambat, filter nama dan tanggal.
+  Daftar seluruh peminjaman, status aktif/selesai/terlambat, filter nama dan tanggal, serta detail transaksi tertentu.
 
 ## Struktur Data Inti
 

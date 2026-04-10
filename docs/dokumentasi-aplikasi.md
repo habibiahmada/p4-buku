@@ -138,6 +138,7 @@ Fungsi utama:
 - filter berdasarkan nama anggota,
 - filter berdasarkan tanggal,
 - filter status aktif, selesai, atau terlambat,
+- melihat detail lengkap transaksi tertentu termasuk daftar buku yang dipinjam.
 - melihat total buku per transaksi dan denda.
 
 ## 7. Struktur Data
@@ -273,6 +274,7 @@ Fungsi utama:
 2. Admin dapat memfilter berdasarkan nama anggota, tanggal, dan status.
 3. Sistem menampilkan status aktif, selesai, atau terlambat.
 4. Admin memantau jumlah buku, tanggal kembali, dan denda.
+5. Admin dapat melihat detail lengkap transaksi tertentu dengan mengklik link atau tombol detail.
 
 ## 10. Catatan Sinkronisasi dengan Dokumen Analisis
 

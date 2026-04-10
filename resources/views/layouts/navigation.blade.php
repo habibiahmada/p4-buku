@@ -9,8 +9,8 @@
 
 <nav x-data="{ open: false }" class="sticky top-0 z-50 border-b border-ink/10 bg-linen/90 backdrop-blur-sm">
     <div class="mx-auto max-w-7xl px-6">
-        <div class="flex h-20 items-center justify-between gap-6">
-            <div class="flex items-center gap-10">
+        <div class="flex flex-wrap h-20 items-center justify-between gap-6">
+            <div class="flex flex-wrap items-center gap-10">
                 <a href="{{ route($user->role . '.dashboard') }}" class="inline-flex items-center gap-4">
                     <x-application-logo class="h-11 w-11" />
                     <div class="hidden sm:block">
@@ -21,7 +21,7 @@
                     </div>
                 </a>
 
-                <div class="hidden items-center gap-2 md:flex">
+                <div class="hidden items-center gap-2 lg:flex">
                     <x-nav-link :href="route($user->role . '.dashboard')" :active="request()->routeIs($user->role . '.dashboard')">
                         <x-heroicon-o-squares-2x2 class="h-4 w-4" />
                         Dashboard
@@ -35,7 +35,7 @@
                 </div>
             </div>
 
-            <div class="hidden items-center gap-4 sm:flex">
+            <div class="hidden items-center gap-4 lg:flex">
                 <x-dropdown align="right" width="64">
                     <x-slot name="trigger">
                         <button
@@ -70,7 +70,7 @@
                 </x-dropdown>
             </div>
 
-            <div class="flex items-center md:hidden">
+            <div class="flex items-center lg:hidden">
                 <button @click="open = ! open"
                     class="inline-flex h-11 w-11 items-center justify-center border border-ink/10 bg-white/70 text-ink transition hover:border-sage hover:text-sage focus:outline-none focus:ring-2 focus:ring-sage/30">
                     <x-heroicon-o-bars-3 x-show="! open" class="h-5 w-5" />
@@ -80,12 +80,34 @@
         </div>
     </div>
 
-    <div x-show="open" x-cloak class="border-t border-ink/10 bg-linen/95 px-6 py-5 md:hidden">
+    <div x-show="open" x-cloak class="border-t border-ink/10 bg-linen/95 px-6 py-5 lg:hidden">
         <div class="space-y-2">
             <x-responsive-nav-link :href="route($user->role . '.dashboard')" :active="request()->routeIs($user->role . '.dashboard')">
                 <x-heroicon-o-squares-2x2 class="h-5 w-5" />
                 Dashboard
             </x-responsive-nav-link>
+
+            @if ($user->role == 'admin')
+                <x-responsive-nav-link :href="route($user->role . '.users.index')" :active="request()->routeIs($user->role . '.users.*')">
+                    <x-heroicon-o-users class="h-5 w-5" />
+                    Anggota
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route($user->role . '.books.index')" :active="request()->routeIs($user->role . '.books.*')">
+                    <x-heroicon-o-book-open class="h-5 w-5" />
+                    Buku
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route($user->role . '.transactions.index')" :active="request()->routeIs($user->role . '.transactions.*')">
+                    <x-heroicon-o-document-text class="h-5 w-5" />
+                    Peminjaman
+                </x-responsive-nav-link>
+            @elseif ($user->role == 'siswa')
+                <x-responsive-nav-link :href="route($user->role . '.transactions.index')" :active="request()->routeIs($user->role . '.transactions.*')">
+                    <x-heroicon-o-document-text class="h-5 w-5" />
+                    Peminjaman
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <div class="mt-5 border border-ink/10 bg-white/70 p-4">
@@ -101,6 +123,10 @@
             </div>
 
             <div class="mt-4 space-y-2">
+                <x-responsive-nav-link :href="route('profile.edit')">
+                    <x-heroicon-o-user-circle class="h-5 w-5" />
+                    Profil Saya
+                </x-responsive-nav-link>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 

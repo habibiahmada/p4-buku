@@ -165,37 +165,71 @@
 <body class="font-sans text-ink antialiased">
 
     <nav class="sticky top-0 z-50 border-b border-ink/10 bg-linen/90 backdrop-blur-sm">
-        <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-            <div class="flex items-center gap-3">
-                <div class="flex h-8 w-8 items-center justify-center bg-sage">
-                    <span class="text-[11px] font-mono font-medium text-linen">{{ $initials }}</span>
+        <div class="mx-auto max-w-6xl px-6">
+            <div class="flex h-20 items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="flex h-8 w-8 items-center justify-center bg-sage">
+                        <span class="text-[11px] font-mono font-medium text-linen">{{ $initials }}</span>
+                    </div>
+                    <div>
+                        <p class="font-serif text-lg font-semibold tracking-tight">{{ $appName }}</p>
+                        <p class="font-mono text-[10px] uppercase tracking-widest text-muted">v1.0</p>
+                    </div>
                 </div>
-                <span class="font-serif text-lg font-semibold tracking-tight">{{ $appName }}</span>
-                <span
-                    class="hidden border border-muted/40 px-1.5 py-0.5 font-mono text-[10px] text-muted sm:inline">v1.0</span>
+
+                <div class="hidden items-center gap-4 md:flex">
+                    <a href="#fitur"
+                        class="font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-ink">Fitur</a>
+                    <a href="#akses"
+                        class="font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-ink">Akses</a>
+                    <a href="#teknologi"
+                        class="font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-ink">Stack</a>
+                </div>
+
+                <div class="hidden items-center gap-3 md:flex">
+                    @auth
+                        <a href="{{ route('dashboard') }}"
+                            class="font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-ink">Dashboard</a>
+                    @endauth
+                    @guest
+                        <a href="{{ route('login') }}"
+                            class="font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-ink">Masuk</a>
+                        <a href="{{ route('register') }}"
+                            class="bg-sage px-4 py-2.5 font-mono text-[11px] uppercase tracking-widest text-linen transition-colors hover:bg-sage/85">Daftar
+                            &rarr;</a>
+                    @endguest
+                </div>
+
+                <button id="mobile-menu-button"
+                    class="inline-flex h-11 w-11 items-center justify-center rounded border border-ink/10 bg-white/70 text-ink transition hover:border-sage hover:text-sage focus:outline-none focus:ring-2 focus:ring-sage/30 md:hidden"
+                    aria-expanded="false" aria-controls="mobile-menu">
+                    <span id="mobile-menu-open" class="text-lg">&#9776;</span>
+                    <span id="mobile-menu-close" class="hidden text-lg">&times;</span>
+                </button>
             </div>
 
-            <div class="hidden items-center gap-8 md:flex">
-                <a href="#fitur"
-                    class="font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-ink">Fitur</a>
-                <a href="#akses"
-                    class="font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-ink">Akses</a>
-                <a href="#teknologi"
-                    class="font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-ink">Stack</a>
-            </div>
+            <div id="mobile-menu" class="hidden border-t border-ink/10 bg-linen/95 md:hidden">
+                <div class="space-y-2 px-4 py-4">
+                    <a href="#fitur"
+                        class="block rounded-xl px-3 py-3 font-mono text-[11px] uppercase tracking-widest text-ink transition-colors hover:bg-sage-light hover:text-ink">Fitur</a>
+                    <a href="#akses"
+                        class="block rounded-xl px-3 py-3 font-mono text-[11px] uppercase tracking-widest text-ink transition-colors hover:bg-sage-light hover:text-ink">Akses</a>
+                    <a href="#teknologi"
+                        class="block rounded-xl px-3 py-3 font-mono text-[11px] uppercase tracking-widest text-ink transition-colors hover:bg-sage-light hover:text-ink">Stack</a>
 
-            <div class="flex items-center gap-3">
-                @auth
-                    <a href="{{ route('dashboard') }}"
-                        class="hidden font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-ink sm:inline">Dashboard</a>
-                @endauth
-                @guest
-                    <a href="{{ route('login') }}"
-                        class="hidden font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-ink sm:inline">Masuk</a>
-                    <a href="{{ route('register') }}"
-                        class="bg-sage px-4 py-2.5 font-mono text-[11px] uppercase tracking-widest text-linen transition-colors hover:bg-sage/85">Daftar
-                        &rarr;</a>
-                @endguest
+                    <div class="mt-2 border-t border-ink/10 pt-3">
+                        @auth
+                            <a href="{{ route('dashboard') }}"
+                                class="block rounded-xl bg-white px-3 py-3 font-mono text-[11px] uppercase tracking-widest text-ink transition hover:bg-sage/5">Dashboard</a>
+                        @endauth
+                        @guest
+                            <a href="{{ route('login') }}"
+                                class="block rounded-xl px-3 py-3 font-mono text-[11px] uppercase tracking-widest text-ink transition hover:bg-sage-light">Masuk</a>
+                            <a href="{{ route('register') }}"
+                                class="block rounded-xl bg-sage px-3 py-3 font-mono text-[11px] uppercase tracking-widest text-linen transition hover:bg-sage/85">Daftar &rarr;</a>
+                        @endguest
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -618,6 +652,21 @@
                 }
             });
         });
+
+        const menuButton = document.getElementById('mobile-menu-button');
+        const menu = document.getElementById('mobile-menu');
+        const openIcon = document.getElementById('mobile-menu-open');
+        const closeIcon = document.getElementById('mobile-menu-close');
+
+        if (menuButton && menu) {
+            menuButton.addEventListener('click', () => {
+                const isOpen = !menu.classList.contains('hidden');
+                menu.classList.toggle('hidden', isOpen);
+                openIcon.classList.toggle('hidden', !isOpen);
+                closeIcon.classList.toggle('hidden', isOpen);
+                menuButton.setAttribute('aria-expanded', String(!isOpen));
+            });
+        }
     </script>
 
 </body>
